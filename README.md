@@ -1,0 +1,2 @@
+# MazeGenerator
+Maze generation algorithm
