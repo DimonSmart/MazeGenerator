@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maze", "Maze\Maze.csproj", "{CF58CFEF-D04D-4B8F-B513-964ECA8F9DB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeSolver", "MazeSolver\MazeSolver.csproj", "{9469ED54-808E-4B63-8C6B-0DEB5D1F6F0E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF58CFEF-D04D-4B8F-B513-964ECA8F9DB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF58CFEF-D04D-4B8F-B513-964ECA8F9DB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF58CFEF-D04D-4B8F-B513-964ECA8F9DB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF58CFEF-D04D-4B8F-B513-964ECA8F9DB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9469ED54-808E-4B63-8C6B-0DEB5D1F6F0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9469ED54-808E-4B63-8C6B-0DEB5D1F6F0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9469ED54-808E-4B63-8C6B-0DEB5D1F6F0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9469ED54-808E-4B63-8C6B-0DEB5D1F6F0E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9E9F41A2-E519-4773-B2EC-402308EABB3F}
+	EndGlobalSection
+EndGlobal
