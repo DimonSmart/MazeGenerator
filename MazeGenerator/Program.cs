@@ -2,7 +2,7 @@
 using MazeGenerator;
 
 Console.Clear();
-var maze = new Maze(11, 1, () => new Cell());
+var maze = new Maze(11, 11, () => new Cell());
 maze.Redraw();
 
 new MazeBuilder<Cell>(maze, new MazeGenerateOptions(0.75))
