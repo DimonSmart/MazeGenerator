@@ -5,7 +5,7 @@
         // Skip 1 for skip black
         private static readonly ConsoleColor[] colors = ((ConsoleColor[])Enum.GetValues(typeof(ConsoleColor))).Skip(1).ToArray();
 
-        public static void Redraw(this int[,] wave)
+        public static void VizualizeWave(this int[,] wave)
         {
             Console.CursorVisible = false;
             for (int y = 0; y < wave.GetLength(0); y++)
