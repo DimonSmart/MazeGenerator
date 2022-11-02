@@ -27,7 +27,7 @@
             for (int x = 0; x < Width; x++)
             {
                 field[0, x].MakeWall();
-                field[Height-1, x].MakeWall();
+                field[Height - 1, x].MakeWall();
             }
         }
 
