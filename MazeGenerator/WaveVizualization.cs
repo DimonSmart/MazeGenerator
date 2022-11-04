@@ -8,6 +8,7 @@
         public static void VizualizeWave(this int[,] wave)
         {
             Console.CursorVisible = false;
+            Console.BackgroundColor = ConsoleColor.Black;
             for (int y = 0; y < wave.GetLength(0); y++)
             {
                 for (int x = 0; x < wave.GetLength(1); x++)

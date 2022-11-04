@@ -4,14 +4,15 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Thread.Sleep(5000);
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.BackgroundColor = ConsoleColor.Black;
         Console.Clear();
 
         var maze = new Maze(31, 21, () => new Cell());
-
-        new MazeBuilder<Cell>(maze, new MazeGenerateOptions(0.25, 0.2))
+       
+        new MazeBuilder<Cell>(maze, new MazeGenerateOptions(0.50, 0.0))
             .Build();
-        Thread.Sleep(500);
+        maze.Redraw();
         var result = maze.FindPath(1, 1, GetEndPointCriteria(29, 19), wave => { wave.VizualizeWave(); Thread.Sleep(500); });
         if (result.HasValue)
         {
