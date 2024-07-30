@@ -17,7 +17,7 @@
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.BackgroundColor = ConsoleColor.White;
                         // On some monitors this character printed as not visible
-                        // so we need a trick with foregraund and background colors
+                        // so we need a trick with foreground and background colors
                         cellText = "▓▓";
                     }
                     else
