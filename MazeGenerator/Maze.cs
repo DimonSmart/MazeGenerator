@@ -11,20 +11,20 @@
             Width = width;
             Height = height;
             field = new ICell[Height, Width];
-            for (int y = 0; y < Height; y++)
+            for (var y = 0; y < Height; y++)
             {
-                for (int x = 0; x < Width; x++)
+                for (var x = 0; x < Width; x++)
                 {
                     field[y, x] = createCell();
                 }
             }
-            for (int y = 0; y < Height; y++)
+            for (var y = 0; y < Height; y++)
             {
                 field[y, 0].MakeWall();
                 field[y, Width - 1].MakeWall();
             }
 
-            for (int x = 0; x < Width; x++)
+            for (var x = 0; x < Width; x++)
             {
                 field[0, x].MakeWall();
                 field[Height - 1, x].MakeWall();
