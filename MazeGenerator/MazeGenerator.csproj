@@ -1,14 +1,33 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>library</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Configuration>Release</Configuration>
+		<IsPackable>true</IsPackable>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Title>DimonSmart.MazeGenerator</Title>
+		<Description>Generate complex mazes and find solutions. Useful for educational purposes and game development.</Description>
+		<Authors>DimonSmart</Authors>
+		<Company>DimonSmart</Company>
+		<PackageProjectUrl>https://github.com/DimonSmart/MazeGenerator</PackageProjectUrl>
+		<PackageIcon>MazeGeneratorIcon.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/DimonSmart/MazeGenerator</RepositoryUrl>
+		<PackageTags>Maze;Generator;Pathfinding</PackageTags>
+		<PackageLicenseExpression>0BSD</PackageLicenseExpression>
+		<LangVersion>latest</LangVersion>
+		<Deterministic>true</Deterministic>
+		<PackageVersion>1.$([System.DateTime]::UtcNow.ToString("yyMdd")).$([System.DateTime]::UtcNow.ToString("HHmm"))</PackageVersion>
+		<Version>1.$([System.DateTime]::UtcNow.ToString("yyMdd")).$([System.DateTime]::UtcNow.ToString("HHmm"))</Version>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Functional.Maybe" Version="2.0.20" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Functional.Maybe" Version="2.0.20" />
+		<None Include="..\README.md" Pack="True" PackagePath="/" />
+		<None Include="MazeGeneratorIcon.png" Pack="True" PackagePath="/" />
+	</ItemGroup>
 
 </Project>
