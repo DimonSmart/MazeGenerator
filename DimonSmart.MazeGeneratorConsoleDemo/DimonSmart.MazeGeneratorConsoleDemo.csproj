@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MazeGenerator\MazeGenerator.csproj" />
+    <ProjectReference Include="..\DimonSmart.MazeGenerator\DimonSmart.MazeGenerator.csproj" />
   </ItemGroup>
 
 </Project>
