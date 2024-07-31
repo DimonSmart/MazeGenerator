@@ -9,7 +9,7 @@ namespace MazeGenerator
         private readonly IMazePlotter? _mazePlotter;
         private readonly ICell[,] field;
 
-        public Maze(int width, int height, Func<ICell> createCell, IMazePlotter? mazePlotter)
+        public Maze(int width, int height, Func<ICell> createCell, IMazePlotter? mazePlotter = default)
         {
             Width = width;
             Height = height;
