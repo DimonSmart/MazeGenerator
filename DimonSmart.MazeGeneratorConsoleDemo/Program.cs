@@ -10,8 +10,7 @@ internal class Program
         Console.BackgroundColor = ConsoleColor.Black;
         Console.Clear();
 
-
-        var mazePlotter = new MazeConsolePlotter(TimeSpan.FromMilliseconds(50));
+        var mazePlotter = new MazeConsolePlotter(TimeSpan.FromMilliseconds(25));
 
         var maze = new Maze(31, 21, () => new Cell(), mazePlotter);
 
@@ -19,15 +18,14 @@ internal class Program
             .Build();
 
         var result = maze.FindPath(1, 1, GetEndPointCriteria(29, 19), wave => { wave.VisualizeWave(mazePlotter); Thread.Sleep(500); });
-        if (result.HasValue)
+        if (result != null)
         {
-            result.Value.VizualizePath();
+            result.VizualizePath(mazePlotter);
         }
 
         Console.CursorVisible = true;
         Thread.Sleep(10000);
     }
-
 
     // In case we need to find a big object, not a point.
     private static Func<int, int, bool> GetEndPointCriteria(int endX, int endY)

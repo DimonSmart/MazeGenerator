@@ -1,12 +1,10 @@
-﻿using Functional.Maybe;
-
-namespace MazeGenerator
+﻿namespace MazeGenerator
 {
     public static class MazePathFinder
     {
         public record Point(int X, int Y);
         public record PathFindingResult(Point EndPoint, int[,] Wave);
-        public static Maybe<PathFindingResult> FindPath(this Maze maze, int startx, int starty, Func<int, int, bool> criteria, Action<int[,]> onWave)
+        public static PathFindingResult? FindPath(this Maze maze, int startx, int starty, Func<int, int, bool> criteria, Action<int[,]> onWave)
         {
 
             var stack1 = new Stack<Point>();
@@ -23,7 +21,7 @@ namespace MazeGenerator
                     var waveNumber = wave[y, x];
                     wave[y, x] = waveNumber;
 
-                    if (criteria(x, y)) { return new PathFindingResult(new Point(x, y), wave).ToMaybe(); }
+                    if (criteria(x, y)) { return new PathFindingResult(new Point(x, y), wave); }
                     waveNumber++;
 
                     if (!maze.IsWall(x + 1, y) && wave[y, x + 1] == 0)
@@ -46,7 +44,7 @@ namespace MazeGenerator
                 onWave(wave);
                 (stack1, stack2) = (stack2, stack1);
             } while (stack1.Any());
-            return Maybe<PathFindingResult>.Nothing;
+            return null;
         }
     }
 }

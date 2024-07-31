@@ -4,20 +4,14 @@ namespace MazeGenerator
 {
     public static class PathVizualization
     {
-        public static void VizualizePath(this PathFindingResult path)
+        public static void VizualizePath(this PathFindingResult path, IPathPlotter plotter)
         {
-            Console.CursorVisible = false;
-
             var x = path.EndPoint.X;
             var y = path.EndPoint.Y;
             var currentWaveNumber = path.Wave[y, x];
             while (currentWaveNumber > 0)
             {
-                Console.ForegroundColor = ConsoleColor.Black;
-                Console.BackgroundColor = ConsoleColor.DarkYellow;
-                Console.SetCursorPosition(x * 2, y);
-                Console.WriteLine($"{currentWaveNumber:00}");
-
+                plotter.PlotPath(x, y, currentWaveNumber);
                 currentWaveNumber--;
 
                 if (path.Wave[y, x + 1] == currentWaveNumber)

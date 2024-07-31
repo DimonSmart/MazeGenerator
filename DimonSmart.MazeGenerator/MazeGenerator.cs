@@ -4,7 +4,6 @@
     {
         private readonly Maze _maze;
         private readonly MazeGenerateOptions Options;
-        private readonly IMazePlotter? _plotter;
         private bool _done;
 
         public MazeBuilder(Maze maze, MazeGenerateOptions options)

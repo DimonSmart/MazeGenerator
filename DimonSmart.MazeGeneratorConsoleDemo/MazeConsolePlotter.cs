@@ -2,7 +2,7 @@
 
 namespace MazeGeneratorConsoleDemo
 {
-    public class MazeConsolePlotter : IMazePlotter
+    public class MazeConsolePlotter : IMazePlotter, IWavePlotter, IPathPlotter
     {
         public MazeConsolePlotter()
         {
@@ -34,8 +34,9 @@ namespace MazeGeneratorConsoleDemo
         public void PlotWave(int x, int y, int waveNumber)
         {
             Console.ForegroundColor = colors[waveNumber % colors.Length];
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.SetCursorPosition(x * 2, y);
-            Console.WriteLine(waveNumber);
+            Console.WriteLine($"{waveNumber:00}");
         }
 
         public void PlotPassage(int x, int y)
@@ -44,6 +45,14 @@ namespace MazeGeneratorConsoleDemo
             Console.BackgroundColor = ConsoleColor.Black;
             Console.SetCursorPosition(x * 2, y);
             Console.WriteLine(Wall);
+        }
+
+        public void PlotPath(int x, int y, int waveNumber)
+        {
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.DarkYellow;
+            Console.SetCursorPosition(x * 2, y);
+            Console.WriteLine($"{waveNumber:00}");
         }
     }
 }
