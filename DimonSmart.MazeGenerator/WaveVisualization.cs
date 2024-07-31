@@ -4,8 +4,6 @@
     {
         public static void VisualizeWave(this int[,] wave, IWavePlotter plotter)
         {
-            Console.CursorVisible = false;
-            Console.BackgroundColor = ConsoleColor.Black;
             for (var y = 0; y < wave.GetLength(0); y++)
             {
                 for (var x = 0; x < wave.GetLength(1); x++)

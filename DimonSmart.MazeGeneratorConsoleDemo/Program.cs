@@ -5,9 +5,12 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        Console.CursorVisible = false;
         Console.ForegroundColor = ConsoleColor.White;
         Console.BackgroundColor = ConsoleColor.Black;
         Console.Clear();
+        
+       
         var wavePlotter = new WaveConsolePlotter();
 
         var maze = new Maze(31, 21, () => new Cell());
@@ -22,7 +25,7 @@ internal class Program
             result.Value.VizualizePath();
         }
 
-
+        Console.CursorVisible = true;
         Thread.Sleep(10000);
     }
 
