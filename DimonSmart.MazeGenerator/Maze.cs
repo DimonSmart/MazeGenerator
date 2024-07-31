@@ -39,11 +39,31 @@
             }
         }
 
+        public ICell this[int x, int y]
+        {
+            get
+            {
+                ValidateCoordinates(x, y);
+                return field[y, x];
+            }
+            set
+            {
+                ValidateCoordinates(x, y);
+                field[y, x] = value;
+            }
+        }
+
         public bool IsWall(int x, int y) => field[y, x].IsWall();
         public void MakeWall(int x, int y)
         {
             field[y, x].MakeWall();
             _mazePlotter?.PlotWall(x, y);
+        }
+
+        private void ValidateCoordinates(int x, int y)
+        {
+            if (x < 0 || x >= Width || y < 0 || y >= Height)
+                throw new ArgumentOutOfRangeException("Coordinates out of the maze boundaries.");
         }
     }
 

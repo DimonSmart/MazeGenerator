@@ -1,4 +1,5 @@
 ﻿using DimonSmart.MazeGenerator;
+using DimonSmart.MazeGeneratorConsoleDemo;
 using MazeGeneratorConsoleDemo;
 
 internal class Program

@@ -1,4 +1,6 @@
-﻿namespace DimonSmart.MazeGenerator
+﻿using DimonSmart.MazeGenerator;
+
+namespace DimonSmart.MazeGeneratorConsoleDemo
 {
     public class Cell : ICell
     {
