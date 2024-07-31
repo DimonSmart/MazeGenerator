@@ -1,4 +1,6 @@
-﻿namespace MazeGenerator
+﻿using DimonSmart.MazeGenerator;
+
+namespace MazeGenerator
 {
     public static class MazeVisualization
     {
