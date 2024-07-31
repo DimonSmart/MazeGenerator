@@ -2,7 +2,7 @@
 {
     public static class WaveVisualization
     {
-        public static void VisualizeWave(this int[,] wave, IWavePlotter plotter)
+        public static void VisualizeWave(this int[,] wave, IMazePlotter plotter)
         {
             for (var y = 0; y < wave.GetLength(0); y++)
             {

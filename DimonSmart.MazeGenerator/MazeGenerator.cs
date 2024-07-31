@@ -4,6 +4,7 @@
     {
         private readonly Maze _maze;
         private readonly MazeGenerateOptions Options;
+        private readonly IMazePlotter? _plotter;
         private bool _done;
 
         public MazeBuilder(Maze maze, MazeGenerateOptions options)
@@ -49,7 +50,7 @@
             {
                 if (_maze.IsWall(x, y)) break;
                 _maze.MakeWall(x, y);
-                MazeVisualization.Redraw(_maze);
+                // MazeVisualization.Redraw(_maze);
                 if (length > 1 && x % 2 == 0 && y % 2 == 0 && Random.Shared.NextDouble() < Options.StopWallGenerationProbability) break;
                 x += dx;
                 y += dy;

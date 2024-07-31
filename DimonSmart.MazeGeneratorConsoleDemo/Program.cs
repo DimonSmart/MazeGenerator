@@ -9,17 +9,16 @@ internal class Program
         Console.ForegroundColor = ConsoleColor.White;
         Console.BackgroundColor = ConsoleColor.Black;
         Console.Clear();
-        
-       
-        var wavePlotter = new WaveConsolePlotter();
 
-        var maze = new Maze(31, 21, () => new Cell());
-       
+
+        var mazePlotter = new MazeConsolePlotter(TimeSpan.FromMilliseconds(50));
+
+        var maze = new Maze(31, 21, () => new Cell(), mazePlotter);
+
         new MazeBuilder<Cell>(maze, new MazeGenerateOptions(0.50, 0.0))
             .Build();
-        maze.Redraw();
 
-        var result = maze.FindPath(1, 1, GetEndPointCriteria(29, 19), wave => { wave.VisualizeWave(wavePlotter); Thread.Sleep(500); });
+        var result = maze.FindPath(1, 1, GetEndPointCriteria(29, 19), wave => { wave.VisualizeWave(mazePlotter); Thread.Sleep(500); });
         if (result.HasValue)
         {
             result.Value.VizualizePath();
