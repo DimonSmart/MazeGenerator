@@ -1,4 +1,4 @@
-﻿namespace MazeGenerator
+﻿namespace DimonSmart.MazeGenerator
 {
     public class MazeBuilder<ICell>
     {

@@ -1,6 +1,6 @@
-﻿using static MazeGenerator.MazePathFinder;
+﻿using static DimonSmart.MazeGenerator.MazePathFinder;
 
-namespace MazeGenerator
+namespace DimonSmart.MazeGenerator
 {
     public static class PathVizualization
     {

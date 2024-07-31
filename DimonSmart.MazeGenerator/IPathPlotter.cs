@@ -1,4 +1,4 @@
-﻿namespace MazeGenerator
+﻿namespace DimonSmart.MazeGenerator
 {
     /// <summary>
     /// Provides functionality for plotting paths in a maze.

@@ -1,6 +1,4 @@
-﻿using DimonSmart.MazeGenerator;
-
-namespace MazeGenerator
+﻿namespace DimonSmart.MazeGenerator
 {
     public class Maze
     {

@@ -1,5 +1,4 @@
 ﻿using DimonSmart.MazeGenerator;
-using MazeGenerator;
 
 namespace MazeGeneratorConsoleDemo
 {

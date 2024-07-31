@@ -1,6 +1,5 @@
 ﻿namespace DimonSmart.MazeGenerator
 {
-
     /// <summary>
     /// Represents a single cell within a maze.
     /// </summary>

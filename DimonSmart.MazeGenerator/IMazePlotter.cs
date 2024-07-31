@@ -1,6 +1,5 @@
 ﻿namespace DimonSmart.MazeGenerator
 {
-
     /// <summary>
     /// Provides functionality for plotting walls and passages in a maze.
     /// </summary>

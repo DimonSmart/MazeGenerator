@@ -1,4 +1,4 @@
-﻿namespace MazeGenerator
+﻿namespace DimonSmart.MazeGenerator
 {
     /// <summary>
     /// Provides functionality for visualizing wave propagation in a maze.
