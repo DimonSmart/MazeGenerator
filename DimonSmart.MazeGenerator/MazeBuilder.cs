@@ -12,38 +12,41 @@
             Options = options;
         }
 
-        public void Build() => Build(CancellationToken.None);
-
-        public void Build(CancellationToken cancellationToken)
+        public void Build(IMazePlotter? plotter = null, CancellationToken cancellationToken = default)
         {
-            if (_done) return;
-            for (var y = 2; y < _maze.Height - 2; y += 2)
-                for (var x = 2; x < _maze.Width - 2; x += 2)
-                    DrawLine(x, y, cancellationToken);
-            _done = true;
+            BuildCore((x, y) =>
+            {
+                plotter?.PlotWall(x, y);
+                return Task.CompletedTask;
+            }, cancellationToken).GetAwaiter().GetResult();
         }
 
-        private void DrawLine(int x, int y, CancellationToken cancellationToken)
+        public async Task BuildAsync(IMazePlotter plotter, CancellationToken cancellationToken = default)
+        {
+            await BuildCore(plotter.PlotWallAsync, cancellationToken);
+        }
+
+        private async Task DrawLine(int x, int y, Func<int, int, Task> plotAction, CancellationToken cancellationToken)
         {
             var randomNumber = Random.Shared.Next(0, 4);
             switch (randomNumber)
             {
                 case 0:
-                    DrawLine(x, y, 0, 1, cancellationToken);
+                    await DrawLine(x, y, 0, 1, plotAction, cancellationToken);
                     break;
                 case 1:
-                    DrawLine(x, y, 1, 0, cancellationToken);
+                    await DrawLine(x, y, 1, 0, plotAction, cancellationToken);
                     break;
                 case 2:
-                    DrawLine(x, y, -1, 0, cancellationToken);
+                    await DrawLine(x, y, -1, 0, plotAction, cancellationToken);
                     break;
                 case 3:
-                    DrawLine(x, y, 0, -1, cancellationToken);
+                    await DrawLine(x, y, 0, -1, plotAction, cancellationToken);
                     break;
             }
         }
 
-        private void DrawLine(int x, int y, int dx, int dy, CancellationToken cancellationToken)
+        private async Task DrawLine(int x, int y, int dx, int dy, Func<int, int, Task> plotAction, CancellationToken cancellationToken)
         {
             if (Random.Shared.NextDouble() < Options.Emptiness) return;
             var length = 0;
@@ -52,11 +55,27 @@
                 if (cancellationToken.IsCancellationRequested) return;
                 if (_maze.IsWall(x, y)) break;
                 _maze.MakeWall(x, y);
+                await plotAction(x, y);
                 if (length > 1 && x % 2 == 0 && y % 2 == 0 && Random.Shared.NextDouble() < Options.StopWallGenerationProbability) break;
                 x += dx;
                 y += dy;
                 length++;
             }
+        }
+
+        private async Task BuildCore(Func<int, int, Task> plotAction, CancellationToken cancellationToken)
+        {
+            if (_done) return;
+
+            for (var y = 2; y < _maze.Height - 2; y += 2)
+            {
+                for (var x = 2; x < _maze.Width - 2; x += 2)
+                {
+                    await DrawLine(x, y, plotAction, cancellationToken);
+                }
+            }
+
+            _done = true;
         }
     }
 }
