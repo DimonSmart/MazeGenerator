@@ -4,14 +4,12 @@
     {
         public readonly int Width;
         public readonly int Height;
-        private readonly IMazePlotter? _mazePlotter;
         private readonly ICell[,] field;
 
-        public Maze(int width, int height, Func<ICell> createCell, IMazePlotter? mazePlotter = default)
+        public Maze(int width, int height, Func<ICell> createCell)
         {
             Width = width;
             Height = height;
-            _mazePlotter = mazePlotter;
             field = new ICell[Height, Width];
             for (var y = 0; y < Height; y++)
             {
@@ -54,11 +52,7 @@
         }
 
         public bool IsWall(int x, int y) => field[y, x].IsWall();
-        public void MakeWall(int x, int y)
-        {
-            field[y, x].MakeWall();
-            _mazePlotter?.PlotWall(x, y);
-        }
+        public void MakeWall(int x, int y) => field[y, x].MakeWall();
 
         private void ValidateCoordinates(int x, int y)
         {

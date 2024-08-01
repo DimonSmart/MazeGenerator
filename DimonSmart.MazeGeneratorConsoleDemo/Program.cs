@@ -13,7 +13,7 @@ internal class Program
 
         var mazePlotter = new MazeConsolePlotter(TimeSpan.FromMilliseconds(25));
 
-        var maze = new Maze(31, 21, () => new Cell(), mazePlotter);
+        var maze = new Maze(31, 21, () => new Cell());
 
         new MazeBuilder<Cell>(maze, new MazeGenerateOptions(0.50, 0.0))
             .Build();
