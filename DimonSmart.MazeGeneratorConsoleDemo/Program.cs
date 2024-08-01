@@ -15,8 +15,8 @@ internal class Program
 
         var maze = new Maze(31, 21, () => new Cell());
 
-        new MazeBuilder<Cell>(maze, new MazeGenerateOptions(0.50, 0.0))
-            .Build();
+        new MazeBuilder<Cell>(maze, new MazeBuildOptions(0.50, 0.0))
+            .Build(mazePlotter);
 
         var result = maze.FindPath(1, 1, GetEndPointCriteria(29, 19), wave => { wave.VisualizeWave(mazePlotter); Thread.Sleep(500); });
         if (result != null)

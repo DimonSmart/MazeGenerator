@@ -3,10 +3,10 @@
     public class MazeBuilder<ICell>
     {
         private readonly Maze _maze;
-        private readonly MazeGenerateOptions Options;
+        private readonly MazeBuildOptions Options;
         private bool _done;
 
-        public MazeBuilder(Maze maze, MazeGenerateOptions options)
+        public MazeBuilder(Maze maze, MazeBuildOptions options)
         {
             _maze = maze;
             Options = options;
@@ -66,7 +66,7 @@
         private async Task BuildCore(Func<int, int, Task> plotAction, CancellationToken cancellationToken)
         {
             if (_done) return;
-
+            CreateBorder(plotAction, cancellationToken);
             for (var y = 2; y < _maze.Height - 2; y += 2)
             {
                 for (var x = 2; x < _maze.Width - 2; x += 2)
@@ -76,6 +76,27 @@
             }
 
             _done = true;
+        }
+
+        private void CreateBorder(Func<int, int, Task> plotAction, CancellationToken cancellationToken)
+        {
+            for (var y = 0; y < _maze.Height; y++)
+            {
+                if (cancellationToken.IsCancellationRequested) return;
+                _maze.MakeWall(0, y);
+                plotAction(0, y);
+                _maze.MakeWall(_maze.Width - 1, y);
+                plotAction(_maze.Width - 1, y);
+            }
+
+            for (var x = 0; x < _maze.Width; x++)
+            {
+                if (cancellationToken.IsCancellationRequested) return;
+                _maze.MakeWall(x, 0);
+                plotAction(x, 0);
+                _maze.MakeWall(x, _maze.Height - 1);
+                plotAction(x, _maze.Height - 1);
+            }
         }
     }
 }

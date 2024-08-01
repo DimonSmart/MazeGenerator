@@ -18,23 +18,6 @@
                     field[y, x] = createCell();
                 }
             }
-
-            CreateBorder();
-        }
-
-        private void CreateBorder()
-        {
-            for (var y = 0; y < Height; y++)
-            {
-                MakeWall(0, y);
-                MakeWall(Width - 1, y);
-            }
-
-            for (var x = 0; x < Width; x++)
-            {
-                MakeWall(x, 0);
-                MakeWall(x, Height - 1);
-            }
         }
 
         public ICell this[int x, int y]
