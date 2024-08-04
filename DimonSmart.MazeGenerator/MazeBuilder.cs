@@ -14,16 +14,20 @@
 
         public void Build(IMazePlotter? plotter = null, CancellationToken cancellationToken = default)
         {
-            BuildCore((x, y) =>
+            BuildCoreAsync((x, y) =>
             {
                 plotter?.PlotWall(x, y);
                 return Task.CompletedTask;
             }, cancellationToken).GetAwaiter().GetResult();
         }
 
-        public async Task BuildAsync(IMazePlotter plotter, CancellationToken cancellationToken = default)
+        public async Task BuildAsync(IMazePlotter? plotter = null, CancellationToken cancellationToken = default)
         {
-            await BuildCore(plotter.PlotWallAsync, cancellationToken);
+            Func<int, int, Task> plotAction = plotter != null
+                ? plotter.PlotWallAsync
+                : (x, y) => Task.CompletedTask;
+
+            await BuildCoreAsync(plotAction, cancellationToken);
         }
 
         private async Task DrawLine(int x, int y, Func<int, int, Task> plotAction, CancellationToken cancellationToken)
@@ -63,10 +67,10 @@
             }
         }
 
-        private async Task BuildCore(Func<int, int, Task> plotAction, CancellationToken cancellationToken)
+        private async Task BuildCoreAsync(Func<int, int, Task> plotAction, CancellationToken cancellationToken)
         {
             if (_done) return;
-            CreateBorder(plotAction, cancellationToken);
+            await CreateBorder(plotAction, cancellationToken);
             for (var y = 2; y < _maze.Height - 2; y += 2)
             {
                 for (var x = 2; x < _maze.Width - 2; x += 2)
@@ -78,24 +82,24 @@
             _done = true;
         }
 
-        private void CreateBorder(Func<int, int, Task> plotAction, CancellationToken cancellationToken)
+        private async Task CreateBorder(Func<int, int, Task> plotAction, CancellationToken cancellationToken)
         {
             for (var y = 0; y < _maze.Height; y++)
             {
                 if (cancellationToken.IsCancellationRequested) return;
                 _maze.MakeWall(0, y);
-                plotAction(0, y);
+                if (plotAction != null) await plotAction(0, y);
                 _maze.MakeWall(_maze.Width - 1, y);
-                plotAction(_maze.Width - 1, y);
+                if (plotAction != null) await plotAction(_maze.Width - 1, y);
             }
 
             for (var x = 0; x < _maze.Width; x++)
             {
                 if (cancellationToken.IsCancellationRequested) return;
                 _maze.MakeWall(x, 0);
-                plotAction(x, 0);
+                if (plotAction != null) await plotAction(x, 0);
                 _maze.MakeWall(x, _maze.Height - 1);
-                plotAction(x, _maze.Height - 1);
+                if (plotAction != null) await plotAction(x, _maze.Height - 1);
             }
         }
     }
