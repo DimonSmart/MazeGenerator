@@ -5,7 +5,12 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DimonSmart.MazeGenerator", "DimonSmart.MazeGenerator\DimonSmart.MazeGenerator.csproj", "{5F3B0508-4FBC-49FA-B263-C79BBA11C213}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DimonSmart.MazeGeneratorConsoleDemo", "DimonSmart.MazeGeneratorConsoleDemo\DimonSmart.MazeGeneratorConsoleDemo.csproj", "{7BD38D51-BF25-417E-96E2-F0EE09AB2B22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DimonSmart.MazeGeneratorConsoleDemo", "DimonSmart.MazeGeneratorConsoleDemo\DimonSmart.MazeGeneratorConsoleDemo.csproj", "{7BD38D51-BF25-417E-96E2-F0EE09AB2B22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B68638AB-4DCF-403F-9003-64A7D4DD8456}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

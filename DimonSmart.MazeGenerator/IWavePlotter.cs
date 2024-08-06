@@ -11,6 +11,15 @@
         /// <param name="x">The x-coordinate of the wave.</param>
         /// <param name="y">The y-coordinate of the wave.</param>
         /// <param name="waveNumber">The wave number to be visualized.</param>
-        void PlotWave(int x, int y, int waveNumber);
+        void PlotWave(int x, int y, int waveNumber) { }
+
+        /// <summary>
+        /// Asynchronously visualizes a wave at the specified coordinates.
+        /// </summary>
+        /// <param name="x">The x-coordinate of the wave.</param>
+        /// <param name="y">The y-coordinate of the wave.</param>
+        /// <param name="waveNumber">The wave number to be visualized.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
+        Task PlotWaveAsync(int x, int y, int waveNumber) => Task.CompletedTask;
     }
 }

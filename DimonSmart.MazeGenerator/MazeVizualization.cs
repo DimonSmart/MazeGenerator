@@ -2,7 +2,7 @@
 {
     public static class MazeVisualization
     {
-        public static Maze Redraw(this Maze maze, IMazePlotter plotter)
+        public static IMaze Redraw(this IMaze maze, IMazePlotter plotter)
         {
             for (var y = 0; y < maze.Height; y++)
             {

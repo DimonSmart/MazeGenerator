@@ -34,6 +34,7 @@ To see the MazeGenerator in action:
 
 #### Classes and Interfaces
 
+- `IMaze`: Interface defining the basic structure and functionality of a maze.
 - `Maze`: Represents the maze structure with methods for wall creation and query.
 - `Cell`: Basic unit in a maze implementing the ICell interface.
 - `MazeBuilder<T>`: Generic builder class for constructing mazes with specific characteristics and algorithms.
@@ -47,24 +48,21 @@ Add a reference to the MazeGenerator project in your application. Utilize the cl
 using DimonSmart.MazeGenerator;
 using DimonSmart.MazeGeneratorConsoleDemo;
 
-// Create a new maze with dimensions 31x21 using the user defined Cell class
-var maze = new Maze(31, 21, () => new Cell());
+// Create a new maze with dimensions 31x21 using the user-defined Cell class
+var maze = new Maze<Cell>(31, 21);
 
 // Initialize the maze plotter
 var mazePlotter = new MazeConsolePlotter(TimeSpan.FromMilliseconds(25));
 
 // Build the maze with specific generation options
-new MazeBuilder<Cell>(maze, new MazeBuildOptions(0.50, 0.0)).Build(mazePlotter);
+new MazeBuilder(maze, new MazeBuildOptions(0.50, 0.0)).Build(mazePlotter);
 
 // Find a path from start to a specified end point
 var result = maze.FindPath(1, 1, GetEndPointCriteria(29, 19), wave => {
     wave.VisualizeWave(mazePlotter);
     Thread.Sleep(500);
 });
-if (result != null)
-{
-    result.VisualizePath(mazePlotter);
-}
+result?.VisualizePath(mazePlotter);
 
 // Keep the console open for 10 seconds
 Console.CursorVisible = true;
@@ -75,6 +73,7 @@ private static Func<int, int, bool> GetEndPointCriteria(int endX, int endY)
 {
     return (x, y) => x == endX && y == endY;
 }
+
 ```
 
 ### Contributions

@@ -2,9 +2,9 @@
 
 namespace DimonSmart.MazeGenerator
 {
-    public static class PathVizualization
+    public static class PathVisualization
     {
-        public static void VizualizePath(this PathFindingResult path, IPathPlotter plotter)
+        public static void VisualizePath(this PathFindingResult path, IPathPlotter plotter)
         {
             var x = path.EndPoint.X;
             var y = path.EndPoint.Y;

@@ -4,14 +4,14 @@
     {
         public record Point(int X, int Y);
         public record PathFindingResult(Point EndPoint, int[,] Wave);
-        public static PathFindingResult? FindPath(this Maze maze, int startx, int starty, Func<int, int, bool> criteria, Action<int[,]> onWave)
+        public static PathFindingResult? FindPath(this IMaze maze, int startX, int startY, Func<int, int, bool> criteria, Action<int[,]> onWave)
         {
 
             var stack1 = new Stack<Point>();
             var stack2 = new Stack<Point>();
             var wave = new int[maze.Height, maze.Width];
-            stack1.Push(new Point(startx, starty));
-            wave[starty, startx] = 1;
+            stack1.Push(new Point(startX, startY));
+            wave[startY, startX] = 1;
             do
             {
                 while (stack1.Any())

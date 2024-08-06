@@ -4,7 +4,7 @@ using MazeGeneratorConsoleDemo;
 
 internal class Program
 {
-    private static void Main(string[] args)
+    private static void Main(string[] _)
     {
         Console.CursorVisible = false;
         Console.ForegroundColor = ConsoleColor.White;
@@ -13,16 +13,12 @@ internal class Program
 
         var mazePlotter = new MazeConsolePlotter(TimeSpan.FromMilliseconds(25));
 
-        var maze = new Maze(31, 21, () => new Cell());
+        var maze = new Maze<Cell>(31, 21);
 
-        new MazeBuilder<Cell>(maze, new MazeBuildOptions(0.50, 0.0))
-            .Build(mazePlotter);
+        new MazeBuilder(maze, new MazeBuildOptions(0.50, 0.0)).Build(mazePlotter);
 
         var result = maze.FindPath(1, 1, GetEndPointCriteria(29, 19), wave => { wave.VisualizeWave(mazePlotter); Thread.Sleep(500); });
-        if (result != null)
-        {
-            result.VizualizePath(mazePlotter);
-        }
+        result?.VisualizePath(mazePlotter);
 
         Console.CursorVisible = true;
         Thread.Sleep(10000);
