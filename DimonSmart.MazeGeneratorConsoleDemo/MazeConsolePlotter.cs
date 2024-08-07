@@ -13,7 +13,7 @@ namespace MazeGeneratorConsoleDemo
 
         public TimeSpan _wallDrawDelay { get; } = TimeSpan.FromMilliseconds(25);
 
-        public void PlotWall(int x, int y)
+        void IMazePlotter.PlotWall(int x, int y)
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.White;
@@ -22,21 +22,21 @@ namespace MazeGeneratorConsoleDemo
             Thread.Sleep(_wallDrawDelay);
         }
 
-        public void PlotWave(int x, int y, int waveNumber)
+        void IMazePlotter.PlotPassage(int x, int y)
+        {
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.SetCursorPosition(x * 2, y);
+            Console.WriteLine(Wall);
+        }
+
+        void IWavePlotter.PlotWave(int x, int y, int waveNumber, CancellationToken cancellationToken)
         {
             Console.ForegroundColor = colors[waveNumber % colors.Length];
             Console.BackgroundColor = ConsoleColor.Black;
             Console.SetCursorPosition(x * 2, y);
             Console.WriteLine($"{waveNumber:00}");
             Thread.Sleep(_wallDrawDelay);
-        }
-
-        public void PlotPassage(int x, int y)
-        {
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.SetCursorPosition(x * 2, y);
-            Console.WriteLine(Wall);
         }
 
         public void PlotPath(int x, int y, int waveNumber)
