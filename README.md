@@ -38,7 +38,7 @@ To see the MazeGenerator in action:
 - `Maze`: Represents the maze structure with methods for wall creation and query.
 - `Cell`: Basic unit in a maze implementing the ICell interface.
 - `MazeBuilder<T>`: Generic builder class for constructing mazes with specific characteristics and algorithms.
-- `MazePathFinder`: Static class providing pathfinding functionality within the maze using wave propagation.
+- `MazePathFinder`: Class providing pathfinding functionality within the maze using wave propagation.
 - `IMazePlotter`: Interface for plotting elements like walls and passages within the maze, synchronously or asynchronously.
 
 ## Usage
@@ -48,31 +48,13 @@ Add a reference to the MazeGenerator project in your application. Utilize the cl
 using DimonSmart.MazeGenerator;
 using DimonSmart.MazeGeneratorConsoleDemo;
 
-// Create a new maze with dimensions 31x21 using the user-defined Cell class
 var maze = new Maze<Cell>(31, 21);
+var mazePlotter = new MazeConsolePlotter();
 
-// Initialize the maze plotter
-var mazePlotter = new MazeConsolePlotter(TimeSpan.FromMilliseconds(25));
-
-// Build the maze with specific generation options
 new MazeBuilder(maze, new MazeBuildOptions(0.50, 0.0)).Build(mazePlotter);
 
-// Find a path from start to a specified end point
-var result = maze.FindPath(1, 1, GetEndPointCriteria(29, 19), wave => {
-    wave.VisualizeWave(mazePlotter);
-    Thread.Sleep(500);
-});
+var result = new MazePathFinder(maze, mazePlotter).FindPath(1, 1,);
 result?.VisualizePath(mazePlotter);
-
-// Keep the console open for 10 seconds
-Console.CursorVisible = true;
-Thread.Sleep(10000);
-
-// Helper function to define endpoint criteria
-private static Func<int, int, bool> GetEndPointCriteria(int endX, int endY)
-{
-    return (x, y) => x == endX && y == endY;
-}
 
 ```
 

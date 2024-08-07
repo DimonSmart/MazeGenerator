@@ -1,6 +1,6 @@
 ﻿namespace DimonSmart.MazeGenerator
 {
-    public static class WaveVisualization
+    public static class WaveVisualizationXX
     {
         public static void VisualizeWave(this int[,] wave, IWavePlotter plotter)
         {

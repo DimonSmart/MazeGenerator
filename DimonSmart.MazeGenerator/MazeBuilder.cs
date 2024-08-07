@@ -1,6 +1,6 @@
 ﻿namespace DimonSmart.MazeGenerator
 {
-    public class MazeBuilder(IMaze Maze, MazeBuildOptions Options)
+    public class MazeBuilder(IMaze Maze, MazeBuildOptions Options) : IMazeBuilder
     {
         private bool _done;
 
