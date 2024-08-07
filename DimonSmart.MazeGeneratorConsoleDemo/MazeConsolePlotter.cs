@@ -11,7 +11,7 @@ namespace MazeGeneratorConsoleDemo
         // so we need a trick with foreground and background colors
         private const string Wall = "▓▓";
 
-        public TimeSpan _wallDrawDelay { get; } = TimeSpan.FromMilliseconds(25);
+        public TimeSpan WallDrawDelay { get; } = TimeSpan.FromMilliseconds(25);
 
         void IMazePlotter.PlotWall(int x, int y)
         {
@@ -19,7 +19,7 @@ namespace MazeGeneratorConsoleDemo
             Console.BackgroundColor = ConsoleColor.White;
             Console.SetCursorPosition(x * 2, y);
             Console.WriteLine(Wall);
-            Thread.Sleep(_wallDrawDelay);
+            Thread.Sleep(WallDrawDelay);
         }
 
         void IMazePlotter.PlotPassage(int x, int y)
@@ -36,7 +36,7 @@ namespace MazeGeneratorConsoleDemo
             Console.BackgroundColor = ConsoleColor.Black;
             Console.SetCursorPosition(x * 2, y);
             Console.WriteLine($"{waveNumber:00}");
-            Thread.Sleep(_wallDrawDelay);
+            Thread.Sleep(WallDrawDelay);
         }
 
         public void PlotPath(int x, int y, int waveNumber)

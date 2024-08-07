@@ -1,19 +1,11 @@
 ﻿namespace DimonSmart.MazeGenerator
 {
-    public class MazePathFinder : IMazePathFinder
+    public class MazePathFinder(IMaze maze, IWavePlotter? wavePlotter = null) : IMazePathFinder
     {
-        private readonly IMaze _maze;
-        private readonly IWavePlotter? _wavePlotter;
         private int[,]? _wave;
 
         public record Point(int X, int Y);
         public record PathFindingResult(Point? EndPoint, int[,] Wave);
-
-        public MazePathFinder(IMaze maze, IWavePlotter? wavePlotter = null)
-        {
-            _maze = maze;
-            _wavePlotter = wavePlotter;
-        }
 
         public PathFindingResult FindPath(int startX, int startY, Func<int, int, bool> criteria, CancellationToken cancellationToken)
         {
@@ -43,7 +35,7 @@
         {
             var stack1 = new Stack<Point>();
             var stack2 = new Stack<Point>();
-            _wave = new int[_maze.Height, _maze.Width];
+            _wave = new int[maze.Height, maze.Width];
             stack1.Push(new Point(startX, startY));
             _wave[startY, startX] = 1;
             do
@@ -72,7 +64,7 @@
 
         private void TryPush(Stack<Point> stack, int x, int y, int waveNumber, CancellationToken cancellationToken)
         {
-            if (!_maze.IsWall(x, y) && _wave![y, x] == 0)
+            if (!maze.IsWall(x, y) && _wave![y, x] == 0)
             {
                 stack.Push(new Point(x, y));
                 SetWavePoint(x, y, waveNumber, cancellationToken);
@@ -82,15 +74,15 @@
         private void SetWavePoint(int x, int y, int waveNumber, CancellationToken cancellationToken)
         {
             _wave![y, x] = waveNumber;
-            _wavePlotter?.PlotWave(x, y, waveNumber, cancellationToken);
+            wavePlotter?.PlotWave(x, y, waveNumber, cancellationToken);
         }
 
         private async Task SetWavePointAsync(int x, int y, int waveNumber, CancellationToken cancellationToken)
         {
             _wave![y, x] = waveNumber;
-            if (_wavePlotter != null)
+            if (wavePlotter != null)
             {
-                await _wavePlotter.PlotWaveAsync(x, y, waveNumber, cancellationToken);
+                await wavePlotter.PlotWaveAsync(x, y, waveNumber, cancellationToken);
             }
         }
     }
