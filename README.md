@@ -54,7 +54,7 @@ var mazePlotter = new MazeConsolePlotter();
 new MazeBuilder(maze, new MazeBuildOptions(0.50, 0.0)).Build(mazePlotter);
 
 var result = new MazePathFinder(maze, mazePlotter).FindPath(1, 1,);
-result?.VisualizePath(mazePlotter);
+result.VisualizePath(mazePlotter);
 
 ```
 
