@@ -45,17 +45,14 @@ To see the MazeGenerator in action:
 Add a reference to the MazeGenerator project in your application. Utilize the classes to generate and manipulate mazes:
 
 ```csharp
-using DimonSmart.MazeGenerator;
-using DimonSmart.MazeGeneratorConsoleDemo;
+ var maze = new Maze<Cell>(31, 21);
+ var mazePlotter = new MazeConsolePlotter();
 
-var maze = new Maze<Cell>(31, 21);
-var mazePlotter = new MazeConsolePlotter();
+ new MazeBuilder(maze, new MazeBuildOptions(0.50, 0.0)).Build(mazePlotter);
 
-new MazeBuilder(maze, new MazeBuildOptions(0.50, 0.0)).Build(mazePlotter);
-
-var result = new MazePathFinder(maze, mazePlotter).FindPath(1, 1,);
-result.VisualizePath(mazePlotter);
-
+ var wave = new MazeWaveGenerator(maze, mazePlotter).GenerateWave(1, 1, 29, 19);
+ var pathBuilder = new MazePathBuilder(wave, mazePlotter);
+ pathBuilder.BuildPath();
 ```
 
 ### Contributions
