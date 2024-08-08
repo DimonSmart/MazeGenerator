@@ -16,8 +16,9 @@ internal class Program
 
         new MazeBuilder(maze, new MazeBuildOptions(0.50, 0.0)).Build(mazePlotter);
 
-        var result = new MazePathFinder(maze, mazePlotter).FindPath(1, 1, 29, 19);
-        result.VisualizePath(mazePlotter);
+        var wave = new MazeWaveGenerator(maze, mazePlotter).GenerateWave(1, 1, 29, 19);
+        var pathBuilder = new MazePathBuilder(wave, mazePlotter);
+        pathBuilder.BuildPath();
 
         Console.CursorVisible = true;
         Thread.Sleep(10000);

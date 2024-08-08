@@ -39,7 +39,7 @@ namespace MazeGeneratorConsoleDemo
             Thread.Sleep(WallDrawDelay);
         }
 
-        public void PlotPath(int x, int y, int waveNumber)
+        public void PlotPath(int x, int y, int waveNumber, CancellationToken cancellationToken)
         {
             Console.ForegroundColor = ConsoleColor.Black;
             Console.BackgroundColor = ConsoleColor.DarkYellow;

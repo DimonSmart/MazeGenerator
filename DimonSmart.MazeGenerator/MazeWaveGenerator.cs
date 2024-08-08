@@ -1,42 +1,41 @@
 ﻿namespace DimonSmart.MazeGenerator
 {
-    public class MazePathFinder(IMaze maze, IWavePlotter? wavePlotter = null) : IMazePathFinder
+
+    public class MazeWaveGenerator(IMaze maze, IWavePlotter? wavePlotter = null) : IMazeWaveGenerator
     {
         private int[,]? _wave;
 
-        public record Point(int X, int Y);
-        public record PathFindingResult(Point? EndPoint, int[,] Wave);
-
-        public PathFindingResult FindPath(int startX, int startY, Func<int, int, bool> criteria, CancellationToken cancellationToken)
+        public MazeWave GenerateWave(int startX, int startY, Func<int, int, bool> criteria, CancellationToken cancellationToken)
         {
-            return FindPathCoreAsync(startX, startY, criteria, (x, y, waveNumber, ct) =>
+            return GenerateWaveCoreAsync(startX, startY, criteria, (x, y, waveNumber, ct) =>
             {
                 SetWavePoint(x, y, waveNumber, cancellationToken);
                 return Task.CompletedTask;
             }, cancellationToken).GetAwaiter().GetResult();
         }
 
-        public Task<PathFindingResult> FindPathAsync(int startX, int startY, Func<int, int, bool> criteria, CancellationToken cancellationToken = default)
+        public Task<MazeWave> GenerateWaveAsync(int startX, int startY, Func<int, int, bool> criteria, CancellationToken cancellationToken = default)
         {
-            return FindPathCoreAsync(startX, startY, criteria, SetWavePointAsync, cancellationToken);
+            return GenerateWaveCoreAsync(startX, startY, criteria, SetWavePointAsync, cancellationToken);
         }
 
-        public PathFindingResult FindPath(int startX, int startY, int endX, int endY, CancellationToken cancellationToken = default)
+        public MazeWave GenerateWave(int startX, int startY, int endX, int endY, CancellationToken cancellationToken = default)
         {
-            return FindPath(startX, startY, (x, y) => x == endX && y == endY, cancellationToken);
+            return GenerateWave(startX, startY, (x, y) => x == endX && y == endY, cancellationToken);
         }
 
-        public Task<PathFindingResult> FindPathAsync(int startX, int startY, int endX, int endY, CancellationToken cancellationToken = default)
+        public Task<MazeWave> GenerateWaveAsync(int startX, int startY, int endX, int endY, CancellationToken cancellationToken = default)
         {
-            return FindPathAsync(startX, startY, (x, y) => x == endX && y == endY, cancellationToken);
+            return GenerateWaveAsync(startX, startY, (x, y) => x == endX && y == endY, cancellationToken);
         }
 
-        private async Task<PathFindingResult> FindPathCoreAsync(int startX, int startY, Func<int, int, bool> criteria, Func<int, int, int, CancellationToken, Task> setWavePoint, CancellationToken cancellationToken)
+        private async Task<MazeWave> GenerateWaveCoreAsync(int startX, int startY, Func<int, int, bool> criteria, Func<int, int, int, CancellationToken, Task> setWavePoint, CancellationToken cancellationToken)
         {
             var stack1 = new Stack<Point>();
             var stack2 = new Stack<Point>();
+            var startPoint = new Point(startX, startY);
             _wave = new int[maze.Height, maze.Width];
-            stack1.Push(new Point(startX, startY));
+            stack1.Push(startPoint);
             _wave[startY, startX] = 1;
             do
             {
@@ -48,7 +47,7 @@
                     var waveNumber = _wave[y, x];
                     await setWavePoint(x, y, waveNumber, cancellationToken);
 
-                    if (criteria(x, y)) { return new PathFindingResult(new Point(x, y), _wave); }
+                    if (criteria(x, y)) { return new MazeWave(startPoint, new Point(x, y), _wave); }
                     waveNumber++;
 
                     TryPush(stack2, x + 1, y, waveNumber, cancellationToken);
@@ -59,7 +58,7 @@
 
                 (stack1, stack2) = (stack2, stack1);
             } while (stack1.Any());
-            return new PathFindingResult(null, _wave);
+            return new MazeWave(startPoint, null, _wave);
         }
 
         private void TryPush(Stack<Point> stack, int x, int y, int waveNumber, CancellationToken cancellationToken)
