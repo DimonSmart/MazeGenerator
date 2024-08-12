@@ -63,15 +63,16 @@
         {
             if (_done) return;
             await CreateBorder(plotAction, cancellationToken);
-            for (var y = 2; y < Maze.Height - 2; y += 2)
-            {
-                for (var x = 2; x < Maze.Width - 2; x += 2)
-                {
-                    await DrawLine(x, y, plotAction, cancellationToken);
-                }
-            }
-
+            foreach (var point in GetAllPossibleStartPoints().OrderBy(_ => Random.Shared.Next()))
+                await DrawLine(point.X, point.Y, plotAction, cancellationToken);
             _done = true;
+        }
+
+        public IEnumerable<Point> GetAllPossibleStartPoints()
+        {
+            for (var y = 2; y < Maze.Height - 2; y += 2)
+                for (var x = 2; x < Maze.Width - 2; x += 2)
+                    yield return new Point(x, y);
         }
 
         private async Task CreateBorder(Func<int, int, Task> plotAction, CancellationToken cancellationToken)
