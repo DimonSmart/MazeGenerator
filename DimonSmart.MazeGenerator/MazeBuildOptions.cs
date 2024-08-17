@@ -1,4 +1,4 @@
 ﻿namespace DimonSmart.MazeGenerator
 {
-    public record MazeBuildOptions(double StopWallGenerationProbability, double Emptiness);
+    public record MazeBuildOptions(double WallShortness, double Emptiness);
 }

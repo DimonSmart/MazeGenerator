@@ -45,17 +45,15 @@
         private async Task DrawLine(int x, int y, int dx, int dy, Func<int, int, Task> plotAction, CancellationToken cancellationToken)
         {
             if (Random.Shared.NextDouble() < Options.Emptiness) return;
-            var length = 0;
             while (true)
             {
                 if (cancellationToken.IsCancellationRequested) return;
                 if (Maze.IsWall(x, y)) break;
                 Maze.MakeWall(x, y);
                 await plotAction(x, y);
-                if (length > 1 && x % 2 == 0 && y % 2 == 0 && Random.Shared.NextDouble() < Options.StopWallGenerationProbability) break;
+                if (x % 2 == 0 && y % 2 == 0 && Random.Shared.NextDouble() < Options.WallShortness) break;
                 x += dx;
                 y += dy;
-                length++;
             }
         }
 

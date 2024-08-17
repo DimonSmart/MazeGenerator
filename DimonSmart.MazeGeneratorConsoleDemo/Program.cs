@@ -14,7 +14,7 @@ internal class Program
         var maze = new Maze<Cell>(31, 21);
         var mazePlotter = new MazeConsolePlotter();
 
-        new MazeBuilder(maze, new MazeBuildOptions(0.50, 0.0)).Build(mazePlotter);
+        new MazeBuilder(maze, new MazeBuildOptions(0.1, 0.0)).Build(mazePlotter);
 
         var wave = new MazeWaveGenerator(maze, mazePlotter).GenerateWave(1, 1, 29, 19);
         var pathBuilder = new MazePathBuilder(wave, mazePlotter);
