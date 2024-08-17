@@ -1,11 +1,18 @@
 ﻿using DimonSmart.MazeGenerator;
 
-namespace DimonSmart.MazeGeneratorConsoleDemo
+namespace DimonSmart.MazeGeneratorConsoleDemo;
+
+public class Cell : ICell
 {
-    public class Cell : ICell
+    private bool _isWall;
+
+    public bool IsWall()
     {
-        private bool _isWall;
-        public bool IsWall() => _isWall;
-        public void MakeWall() => _isWall = true;
+        return _isWall;
+    }
+
+    public void MakeWall()
+    {
+        _isWall = true;
     }
 }

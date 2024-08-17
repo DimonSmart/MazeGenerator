@@ -1,7 +1,6 @@
-namespace DimonSmart.MazeGenerator
+namespace DimonSmart.MazeGenerator;
+
+public interface IMazePathBuilder
 {
-    public interface IMazePathBuilder
-    {
-        MazePath BuildPath(Point endPoint);
-    }
+    MazePath BuildPath(Point endPoint);
 }

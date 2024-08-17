@@ -1,8 +1,7 @@
-namespace DimonSmart.MazeGenerator
+namespace DimonSmart.MazeGenerator;
+
+public interface IPathCell
 {
-    public interface IPathCell
-    {
-        Point Point { get; }
-        int WaveNumber { get; }
-    }
+    Point Point { get; }
+    int WaveNumber { get; }
 }

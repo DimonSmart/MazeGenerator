@@ -1,8 +1,7 @@
-﻿namespace DimonSmart.MazeGenerator
+﻿namespace DimonSmart.MazeGenerator;
+
+public interface IMazeBuilder
 {
-    public interface IMazeBuilder
-    {
-        void Build(IMazePlotter? plotter = null, CancellationToken cancellationToken = default);
-        Task BuildAsync(IMazePlotter? plotter = null, CancellationToken cancellationToken = default);
-    }
+    void Build(IMazePlotter? plotter = null, CancellationToken cancellationToken = default);
+    Task BuildAsync(IMazePlotter? plotter = null, CancellationToken cancellationToken = default);
 }
