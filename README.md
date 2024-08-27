@@ -1,5 +1,5 @@
 # MazeGenerator
-
+**Demo online:** [https://dimonsmart.github.io/Demo/](https://dimonsmart.github.io/Demo/)
 MazeGenerator is a C# library designed to create complex mazes programmatically. This project also includes a console application demo that showcases how mazes are generated and visualized dynamically.
 
 ## Features
