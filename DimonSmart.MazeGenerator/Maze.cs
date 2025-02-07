@@ -47,16 +47,21 @@ public class Maze<TCell> : IMaze where TCell : ICell, new()
         _field[y, x].MakeWall();
     }
 
-    private void ValidateCoordinates(int x, int y)
+    public void ValidateCoordinates(int x, int y)
     {
         if (x < 0 || x >= Width)
         {
-            throw new ArgumentOutOfRangeException(nameof(x), "Coordinates out of the maze boundaries.");
+            throw new ArgumentOutOfRangeException(nameof(x), x, $"X coordinate {x} is out of the maze boundaries. Valid range is 0 to {Width - 1}.");
         }
 
         if (y < 0 || y >= Height)
         {
-            throw new ArgumentOutOfRangeException(nameof(y), "Coordinates out of the maze boundaries.");
+            throw new ArgumentOutOfRangeException(nameof(y), y, $"Y coordinate {y} is out of the maze boundaries. Valid range is 0 to {Height - 1}.");
         }
+    }
+
+    public bool AreCoordinatesValid(int x, int y)
+    {
+        return x >= 0 && x < Width && y >= 0 && y < Height;
     }
 }
