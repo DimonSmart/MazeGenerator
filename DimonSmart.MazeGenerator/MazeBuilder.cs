@@ -1,6 +1,6 @@
 ﻿namespace DimonSmart.MazeGenerator;
 
-public class MazeBuilder(IMaze Maze, MazeBuildOptions Options) : IMazeBuilder
+public class MazeBuilder<TCell>(IMaze<TCell> Maze, MazeBuildOptions Options) : IMazeBuilder where TCell : ICell
 {
     private bool _done;
 

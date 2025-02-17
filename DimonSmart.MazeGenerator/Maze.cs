@@ -1,6 +1,6 @@
 ﻿namespace DimonSmart.MazeGenerator;
 
-public class Maze<TCell> : IMaze where TCell : ICell, new()
+public class Maze<TCell> : IMaze<TCell> where TCell : ICell, new()
 {
     private readonly TCell[,] _field;
 
@@ -31,11 +31,11 @@ public class Maze<TCell> : IMaze where TCell : ICell, new()
     public int Width { get; }
     public int Height { get; }
 
-    ICell IMaze.this[int x, int y]
-    {
-        get => this[x, y];
-        set => this[x, y] = (TCell)value;
-    }
+    // ICell IMaze<TCell>.this[int x, int y]
+    // {
+    //     get => this[x, y];
+    //     set => this[x, y] = (TCell)value;
+    // }
 
     public bool IsWall(int x, int y)
     {

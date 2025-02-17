@@ -1,6 +1,6 @@
 ﻿namespace DimonSmart.MazeGenerator;
 
-public class MazeWaveGenerator(IMaze maze, IWavePlotter? wavePlotter = null) : IMazeWaveGenerator
+public class MazeWaveGenerator<TCell>(IMaze<TCell> maze, IWavePlotter? wavePlotter = null) : IMazeWaveGenerator where TCell : ICell
 {
     private int[,]? _wave;
 

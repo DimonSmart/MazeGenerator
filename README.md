@@ -38,7 +38,8 @@ To see the MazeGenerator in action:
 - `IMaze`: Interface defining the basic structure and functionality of a maze.
 - `Maze`: Represents the maze structure with methods for wall creation and query.
 - `Cell`: Basic unit in a maze implementing the ICell interface.
-- `MazeBuilder<T>`: Generic builder class for constructing mazes with specific characteristics and algorithms.
+- `MazeBuilder<TCell>`: Generic builder class for constructing mazes with specific characteristics and algorithms.
+- `MazeWaveGenerator<TCell>`: Generic wave generator class for pathfinding using wave propagation in the maze.
 - `MazePathFinder`: Class providing pathfinding functionality within the maze using wave propagation.
 - `IMazePlotter`: Interface for plotting elements like walls and passages within the maze, synchronously or asynchronously.
 
@@ -49,9 +50,9 @@ Add a reference to the MazeGenerator project in your application. Utilize the cl
  var maze = new Maze<Cell>(31, 21);
  var mazePlotter = new MazeConsolePlotter();
 
- new MazeBuilder(maze, new MazeBuildOptions(0.50, 0.0)).Build(mazePlotter);
+ new MazeBuilder<Cell>(maze, new MazeBuildOptions(0.50, 0.0)).Build(mazePlotter);
 
- var wave = new MazeWaveGenerator(maze, mazePlotter).GenerateWave(1, 1, 29, 19);
+ var wave = new MazeWaveGenerator<Cell>(maze, mazePlotter).GenerateWave(1, 1, 29, 19);
  var pathBuilder = new MazePathBuilder(wave, mazePlotter);
  pathBuilder.BuildPath();
 ```
