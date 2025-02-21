@@ -1,6 +1,6 @@
 ﻿namespace DimonSmart.MazeGenerator;
 
-public class MazeBuilder<TCell>(IMaze<TCell> Maze, MazeBuildOptions Options) : IMazeBuilder where TCell : ICell
+public class MazeBuilder<TCell>(IMaze<TCell> Maze, MazeBuildOptions? Options = null) : IMazeBuilder where TCell : ICell
 {
     private bool _done;
 
@@ -45,7 +45,7 @@ public class MazeBuilder<TCell>(IMaze<TCell> Maze, MazeBuildOptions Options) : I
     private async Task DrawLine(int x, int y, int dx, int dy, Func<int, int, Task> plotAction,
         CancellationToken cancellationToken)
     {
-        if (Random.Shared.NextDouble() < Options.Emptiness)
+        if (Random.Shared.NextDouble() < (Options?.Emptiness ?? 0.0))
         {
             return;
         }
@@ -64,7 +64,7 @@ public class MazeBuilder<TCell>(IMaze<TCell> Maze, MazeBuildOptions Options) : I
 
             Maze.MakeWall(x, y);
             await plotAction(x, y);
-            if (x % 2 == 0 && y % 2 == 0 && Random.Shared.NextDouble() < Options.WallShortness)
+            if (x % 2 == 0 && y % 2 == 0 && Random.Shared.NextDouble() < (Options?.WallShortness ?? 0.0))
             {
                 break;
             }
