@@ -14,7 +14,7 @@ MazeGenerator is a C# library designed to create complex mazes programmatically.
 
 ### Prerequisites
 
-- .NET Core SDK (version specified or latest)
+- .NET 6 SDK or later
 
 ### Installation
 
@@ -40,11 +40,11 @@ To see the MazeGenerator in action:
 - `Cell`: Basic unit in a maze implementing the ICell interface.
 - `MazeBuilder<TCell>`: Generic builder class for constructing mazes with specific characteristics and algorithms.
 - `MazeWaveGenerator<TCell>`: Generic wave generator class for pathfinding using wave propagation in the maze.
-- `MazePathFinder`: Class providing pathfinding functionality within the maze using wave propagation.
+- `MazePathBuilder`: Builds a path using the generated wave data.
 - `IMazePlotter`: Interface for plotting elements like walls and passages within the maze, synchronously or asynchronously.
 
 ## Usage
-Add a reference to the MazeGenerator project in your application. Utilize the classes to generate and manipulate mazes:
+Add a reference to the MazeGenerator project in your application. Use these classes to generate and work with mazes:
 
 ### Example 1: Simple Maze Generation (No Visualization)
 This example demonstrates how to generate a maze without any visualization.
@@ -63,7 +63,7 @@ var mazePlotter = new MazeConsolePlotter();
 new MazeBuilder<Cell>(maze, new MazeBuildOptions(0.50, 0.0)).Build(mazePlotter);
 ```
 
-Example 3: Wave Generation for Pathfinding
+### Example 3: Wave Generation for Pathfinding
 This example showcases the full process:
 1. Maze generation with visualization.
 2. Wave propagation for pathfinding from a start point to a target.
