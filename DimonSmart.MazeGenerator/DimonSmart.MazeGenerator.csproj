@@ -9,14 +9,14 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Title>DimonSmart.MazeGenerator</Title>
-		<Description>Generate complex mazes and find solutions. Useful for educational purposes and game development.</Description>
+               <Description>This library generates complex mazes and finds a path through them. It is useful for learning and game development.</Description>
 		<Authors>DimonSmart</Authors>
 		<Company>DimonSmart</Company>
 		<PackageProjectUrl>https://github.com/DimonSmart/MazeGenerator</PackageProjectUrl>
 		<PackageIcon>MazeGeneratorIcon.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/DimonSmart/MazeGenerator</RepositoryUrl>
-		<PackageTags>Maze;Generator;Pathfinding</PackageTags>
+               <PackageTags>maze;maze generator;maze solver;labyrinth;labyrinth generator;labyrinth solver;labirinth;labirinth generator;labirinth solver;puzzle;pathfinding;algorithms;game development;education</PackageTags>
 		<PackageLicenseExpression>0BSD</PackageLicenseExpression>
 		<LangVersion>latest</LangVersion>
 		<Deterministic>true</Deterministic>
