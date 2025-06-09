@@ -1,32 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<Configuration>Release</Configuration>
-		<IsPackable>true</IsPackable>
-		<OutputType>Library</OutputType>
-		<TargetFramework>net6.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Title>DimonSmart.MazeGenerator</Title>
-               <Description>This library generates complex mazes and finds a path through them. It is useful for learning and game development.</Description>
-		<Authors>DimonSmart</Authors>
-		<Company>DimonSmart</Company>
-		<PackageProjectUrl>https://github.com/DimonSmart/MazeGenerator</PackageProjectUrl>
-		<PackageIcon>MazeGeneratorIcon.png</PackageIcon>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<RepositoryUrl>https://github.com/DimonSmart/MazeGenerator</RepositoryUrl>
-               <PackageTags>maze;maze generator;maze solver;labyrinth;labyrinth generator;labyrinth solver;labirinth;labirinth generator;labirinth solver;puzzle;pathfinding;algorithms;game development;education</PackageTags>
-		<PackageLicenseExpression>0BSD</PackageLicenseExpression>
-		<LangVersion>latest</LangVersion>
-		<Deterministic>true</Deterministic>
-		<PackageVersion>1.$([System.DateTime]::UtcNow.ToString("yyMdd")).$([System.DateTime]::UtcNow.ToString("HHmm"))</PackageVersion>
-		<Version>1.$([System.DateTime]::UtcNow.ToString("yyMdd")).$([System.DateTime]::UtcNow.ToString("HHmm"))</Version>
-	</PropertyGroup>
+    <PropertyGroup>
+        <Configuration>Release</Configuration>
+        <IsPackable>true</IsPackable>
+        <OutputType>Library</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>DimonSmart.MazeGenerator</Title>
+        <Description>This library generates complex mazes and finds a path through them. It is useful for learning and game development.</Description>
+        <Authors>DimonSmart</Authors>
+        <Company>DimonSmart</Company>
+        <PackageProjectUrl>https://github.com/DimonSmart/MazeGenerator</PackageProjectUrl>
+        <PackageIcon>MazeGeneratorIcon.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/DimonSmart/MazeGenerator</RepositoryUrl>
+        <PackageTags>maze;maze generator;maze solver;labyrinth;labyrinth generator;labyrinth solver;labirinth;labirinth generator;labirinth solver;puzzle;pathfinding;algorithms;game development;education</PackageTags>
+        <PackageLicenseExpression>0BSD</PackageLicenseExpression>
+        <LangVersion>latest</LangVersion>
+        <Deterministic>true</Deterministic>
+        <PackageVersion>1.$([System.DateTime]::UtcNow.ToString("yyMdd")).$([System.DateTime]::UtcNow.ToString("HHmm"))</PackageVersion>
+        <Version>1.$([System.DateTime]::UtcNow.ToString("yyMdd")).$([System.DateTime]::UtcNow.ToString("HHmm"))</Version>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<None Include="..\README.md" Pack="True" PackagePath="/" />
-		<None Include="MazeGeneratorIcon.png" Pack="True" PackagePath="/" />
-	</ItemGroup>
+    <ItemGroup>
+        <None Include="..\README.md" Pack="True" PackagePath="/" />
+        <None Include="MazeGeneratorIcon.png" Pack="True" PackagePath="/" />
+    </ItemGroup>
 
 </Project>
