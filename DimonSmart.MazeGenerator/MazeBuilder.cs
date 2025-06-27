@@ -1,7 +1,8 @@
 ﻿namespace DimonSmart.MazeGenerator;
 
-public class MazeBuilder<TCell>(IMaze<TCell> Maze, MazeBuildOptions? Options = null) : IMazeBuilder where TCell : ICell
+public class MazeBuilder<TCell>(IMaze<TCell> Maze, MazeBuildOptions? Options = null, Random? Random = null) : IMazeBuilder where TCell : ICell
 {
+    private readonly Random _random = Random ?? System.Random.Shared;
     private bool _done;
 
     public void Build(IMazePlotter? plotter = null, CancellationToken cancellationToken = default)
@@ -24,7 +25,7 @@ public class MazeBuilder<TCell>(IMaze<TCell> Maze, MazeBuildOptions? Options = n
 
     private async Task DrawLine(int x, int y, Func<int, int, Task> plotAction, CancellationToken cancellationToken)
     {
-        var randomNumber = Random.Shared.Next(0, 4);
+        var randomNumber = _random.Next(0, 4);
         switch (randomNumber)
         {
             case 0:
@@ -45,7 +46,7 @@ public class MazeBuilder<TCell>(IMaze<TCell> Maze, MazeBuildOptions? Options = n
     private async Task DrawLine(int x, int y, int dx, int dy, Func<int, int, Task> plotAction,
         CancellationToken cancellationToken)
     {
-        if (Random.Shared.NextDouble() < (Options?.Emptiness ?? 0.0))
+        if (_random.NextDouble() < (Options?.Emptiness ?? 0.0))
         {
             return;
         }
@@ -64,7 +65,7 @@ public class MazeBuilder<TCell>(IMaze<TCell> Maze, MazeBuildOptions? Options = n
 
             Maze.MakeWall(x, y);
             await plotAction(x, y);
-            if (x % 2 == 0 && y % 2 == 0 && Random.Shared.NextDouble() < (Options?.WallShortness ?? 0.0))
+            if (x % 2 == 0 && y % 2 == 0 && _random.NextDouble() < (Options?.WallShortness ?? 0.0))
             {
                 break;
             }
@@ -82,7 +83,7 @@ public class MazeBuilder<TCell>(IMaze<TCell> Maze, MazeBuildOptions? Options = n
         }
 
         await CreateBorder(plotAction, cancellationToken);
-        foreach (var point in GetAllPossibleStartPoints().OrderBy(_ => Random.Shared.Next()))
+        foreach (var point in GetAllPossibleStartPoints().OrderBy(_ => _random.Next()))
         {
             await DrawLine(point.X, point.Y, plotAction, cancellationToken);
         }
