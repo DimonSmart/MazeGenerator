@@ -51,7 +51,8 @@ This example demonstrates how to generate a maze without any visualization.
 The MazeBuilder is invoked without a plotter, so the maze is created silently.
 ```csharp
 var maze = new Maze<Cell>(31, 21);
-new MazeBuilder<Cell>(maze).Build();
+var random = new Random(0); // use a seed for repeatable mazes
+new MazeBuilder<Cell>(maze, null, random).Build();
 ```
 
 ### Example 2: Maze Generation with Progress Visualization
@@ -60,7 +61,8 @@ A MazeConsolePlotter instance is passed to the MazeBuilder to display the buildi
 ```csharp
 var maze = new Maze<Cell>(31, 21);
 var mazePlotter = new MazeConsolePlotter();
-new MazeBuilder<Cell>(maze, new MazeBuildOptions(0.50, 0.0)).Build(mazePlotter);
+var random = new Random(0); // seed for repeatable results
+new MazeBuilder<Cell>(maze, new MazeBuildOptions(0.50, 0.0), random).Build(mazePlotter);
 ```
 
 ### Example 3: Wave Generation for Pathfinding
@@ -71,7 +73,8 @@ This example showcases the full process:
 ```csharp
 var maze = new Maze<Cell>(31, 21);
 var mazePlotter = new MazeConsolePlotter();
-new MazeBuilder<Cell>(maze, new MazeBuildOptions(0.50, 0.0)).Build(mazePlotter);
+var random = new Random(0); // deterministic maze
+new MazeBuilder<Cell>(maze, new MazeBuildOptions(0.50, 0.0), random).Build(mazePlotter);
 
 var wave = new MazeWaveGenerator<Cell>(maze, mazePlotter).GenerateWave(1, 1, 29, 19);
 var pathBuilder = new MazePathBuilder(wave, mazePlotter);
