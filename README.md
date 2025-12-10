@@ -1,85 +1,91 @@
 # MazeGenerator
 **Demo online:** [https://dimonsmart.github.io/Demo/](https://dimonsmart.github.io/Demo/)
 
-MazeGenerator is a C# library designed to create complex mazes programmatically. This project also includes a console application demo that showcases how mazes are generated and visualized dynamically.
+MazeGenerator is a lightweight C# library for generating, visualizing, and solving mazes. It ships with two runnable demos so you can verify the workflow without writing extra plumbing.
 
-## Features
+## Highlights
+- **Deterministic generation** – control maze density via `MazeBuildOptions` (`WallShortness`, `Emptiness`).
+- **Pathfinding out of the box** – `MazeWaveGenerator` + `MazePathBuilder` produces the shortest path.
+- **Extensible plotters** – plug in your own `IMazePlotter`, `IWavePlotter`, or `IPathPlotter` to render progress in any UI.
+- **Broad runtime support** – the library multi-targets `net6.0`, `net7.0`, `net8.0`, `net9.0`, and `net10.0`.
 
-- **Dynamic Maze Generation**: Generate mazes with customizable dimensions and complexity.
-- **Visualization**: Console application for visualizing maze generation and pathfinding processes.
-- **Extensible Architecture**: Easily extendable to integrate different types of maze algorithms and visualization methods.
-- **Pathfinding Support**: Includes pathfinding capabilities to find routes through the mazes.
+## Quick start
 
-## Getting Started
-
-### Prerequisites
-
-- .NET 6 SDK or later
-
-### Installation
-
-Clone the repository and navigate to the project directory:
+Run the minimal text-mode sample:
 
 ```bash
 git clone https://github.com/DimonSmart/MazeGenerator.git
 cd MazeGenerator
+dotnet run --project QuickStartDemo --framework net8.0
 ```
 
-### Running the Demo
-To see the MazeGenerator in action:
+You will see the generated maze, the computed `S` → `E` path, and the path length printed in the terminal. The source lives in [QuickStartDemo/Program.cs](QuickStartDemo/Program.cs).
 
-- Open the solution in Visual Studio or any compatible IDE.
-- Set MazeGeneratorConsoleDemo as the startup project.
-- Build and run the application to visualize the maze generation and pathfinding.
-### Key Components
+## Use the library in your app
 
-#### Classes and Interfaces
+1. **Install the package**
 
-- `IMaze`: Interface defining the basic structure and functionality of a maze.
-- `Maze`: Represents the maze structure with methods for wall creation and query.
-- `Cell`: Basic unit in a maze implementing the ICell interface.
-- `MazeBuilder<TCell>`: Generic builder class for constructing mazes with specific characteristics and algorithms.
-- `MazeWaveGenerator<TCell>`: Generic wave generator class for pathfinding using wave propagation in the maze.
-- `MazePathBuilder`: Builds a path using the generated wave data.
-- `IMazePlotter`: Interface for plotting elements like walls and passages within the maze, synchronously or asynchronously.
+	```bash
+	dotnet add package DimonSmart.MazeGenerator
+	```
 
-## Usage
-Add a reference to the MazeGenerator project in your application. Use these classes to generate and work with mazes:
+2. **Define a cell type** (implements `ICell`, has a public parameterless constructor):
 
-### Example 1: Simple Maze Generation (No Visualization)
-This example demonstrates how to generate a maze without any visualization.
-The MazeBuilder is invoked without a plotter, so the maze is created silently.
-```csharp
-var maze = new Maze<Cell>(31, 21);
-var random = new Random(0); // use a seed for repeatable mazes
-new MazeBuilder<Cell>(maze, null, random).Build();
-```
+	```csharp
+	public sealed class TutorialCell : ICell
+	{
+		 private bool _isWall;
+		 public bool IsWall() => _isWall;
+		 public void MakeWall() => _isWall = true;
+	}
+	```
 
-### Example 2: Maze Generation with Progress Visualization
-In this example, the maze generation progress is visualized in the console.
-A MazeConsolePlotter instance is passed to the MazeBuilder to display the building process.
-```csharp
-var maze = new Maze<Cell>(31, 21);
-var mazePlotter = new MazeConsolePlotter();
-var random = new Random(0); // seed for repeatable results
-new MazeBuilder<Cell>(maze, new MazeBuildOptions(0.50, 0.0), random).Build(mazePlotter);
-```
+3. **Generate a maze, compute a wave, and reconstruct the path**:
 
-### Example 3: Wave Generation for Pathfinding
-This example showcases the full process:
-1. Maze generation with visualization.
-2. Wave propagation for pathfinding from a start point to a target.
-3. Path building based on the generated wave.
-```csharp
-var maze = new Maze<Cell>(31, 21);
-var mazePlotter = new MazeConsolePlotter();
-var random = new Random(0); // deterministic maze
-new MazeBuilder<Cell>(maze, new MazeBuildOptions(0.50, 0.0), random).Build(mazePlotter);
+	```csharp
+	var maze = new Maze<TutorialCell>(31, 21);
+	var options = new MazeBuildOptions(wallShortness: 0.15, emptiness: 0.05);
+	new MazeBuilder<TutorialCell>(maze, options).Build();
 
-var wave = new MazeWaveGenerator<Cell>(maze, mazePlotter).GenerateWave(1, 1, 29, 19);
-var pathBuilder = new MazePathBuilder(wave, mazePlotter);
-pathBuilder.BuildPath();
-```
+	var start = new Point(1, 1);
+	var end = new Point(maze.Width - 2, maze.Height - 2);
+	var wave = new MazeWaveGenerator<TutorialCell>(maze).GenerateWave(start.X, start.Y, end.X, end.Y);
+	var path = new MazePathBuilder(wave).BuildPath();
+	```
 
-### Contributions
-Contributions are welcome! Please fork the repository and submit pull requests with your enhancements.
+4. **Render however you like** – iterate over `maze` to print ASCII (see the QuickStart demo) or handle plotter callbacks:
+
+	```csharp
+	var plotter = new MyConsolePlotter();
+	await new MazeBuilder<TutorialCell>(maze).BuildAsync(plotter);
+	await new MazeWaveGenerator<TutorialCell>(maze, plotter).GenerateWaveAsync(start.X, start.Y, end.X, end.Y);
+	await new MazePathBuilder(wave, plotter).BuildPathAsync();
+	```
+
+`MazeBuildOptions` cheatsheet:
+
+- `WallShortness` – probability of interrupting long straight walls (higher value → twistier mazes).
+- `Emptiness` – probability of skipping a wall entirely (higher value → more open space).
+
+## Built-in demos
+
+- **QuickStartDemo** – self-contained text output proving the README flow works. Run `dotnet run --project QuickStartDemo --framework net10.0` to validate the latest runtime.
+- **DimonSmart.MazeGeneratorConsoleDemo** – colored console visualizer that animates walls, wave propagation, and the final path. Set it as the startup project and press F5 in Visual Studio, or run `dotnet run --project DimonSmart.MazeGeneratorConsoleDemo`.
+
+## Key types
+
+- `Maze<TCell>` – holds the grid and exposes boundary validation.
+- `MazeBuilder<TCell>` – carves the maze; accepts optional `IMazePlotter` callbacks and cancellation tokens.
+- `MazeWaveGenerator<TCell>` – propagates a Lee-style wave until it hits the target or exhausts the grid.
+- `MazePathBuilder` – walks the wave back to produce a `MazePath` with ordered `PathCell` instances.
+- Plotter interfaces (`IMazePlotter`, `IWavePlotter`, `IPathPlotter`) – override sync or async methods depending on how you want to render progress.
+
+## Compatibility & testing
+
+- Library multi-targets `net6.0; net7.0; net8.0; net9.0; net10.0`.
+- QuickStartDemo targets `net6.0`, `net8.0`, and `net10.0` to ensure downstream apps compile cleanly across LTS and the latest SDK.
+- `dotnet build MazeGenerator.sln` succeeds on .NET SDK 10.0.101 (checked on 2025-12-10).
+
+## Contributing
+
+Issues and pull requests are welcome. Please include a short description of the scenario you verified (CLI demo, QuickStartDemo, custom UI, etc.) so regressions stay easy to triage.

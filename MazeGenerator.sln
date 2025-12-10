@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DimonSmart.MazeGenerator", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DimonSmart.MazeGeneratorConsoleDemo", "DimonSmart.MazeGeneratorConsoleDemo\DimonSmart.MazeGeneratorConsoleDemo.csproj", "{7BD38D51-BF25-417E-96E2-F0EE09AB2B22}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickStartDemo", "QuickStartDemo\QuickStartDemo.csproj", "{D0AEBFE7-25C2-4A0A-B84E-0773B929FFEF}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B68638AB-4DCF-403F-9003-64A7D4DD8456}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -26,6 +28,10 @@ Global
 		{7BD38D51-BF25-417E-96E2-F0EE09AB2B22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BD38D51-BF25-417E-96E2-F0EE09AB2B22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BD38D51-BF25-417E-96E2-F0EE09AB2B22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0AEBFE7-25C2-4A0A-B84E-0773B929FFEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0AEBFE7-25C2-4A0A-B84E-0773B929FFEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0AEBFE7-25C2-4A0A-B84E-0773B929FFEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0AEBFE7-25C2-4A0A-B84E-0773B929FFEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

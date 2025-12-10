@@ -1,0 +1,55 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  code-quality:
+    name: Code Quality Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libfontconfig1 libgdiplus libc6-dev
+
+    - name: Restore dependencies
+      run: dotnet restore MazeGenerator.sln
+
+    - name: Build solution
+      run: dotnet build MazeGenerator.sln --configuration Release --no-restore
+
+    - name: Run tests with coverage
+      if: ${{ hashFiles('**/*Tests.csproj') != '' }}
+      run: dotnet test MazeGenerator.sln --configuration Release --no-build --collect:"XPlat Code Coverage" --results-directory ./test-results
+
+    - name: Install ReportGenerator
+      if: ${{ hashFiles('**/*Tests.csproj') != '' }}
+      run: |
+        dotnet tool install -g dotnet-reportgenerator-globaltool
+        echo "${HOME}/.dotnet/tools" >> $GITHUB_PATH
+
+    - name: Generate coverage report
+      if: ${{ hashFiles('**/*Tests.csproj') != '' }}
+      run: reportgenerator -reports:"./test-results/**/coverage.cobertura.xml" -targetdir:"./coverage-report" -reporttypes:"Html;Cobertura"
+
+    - name: Upload coverage report as artifact
+      if: ${{ hashFiles('**/*Tests.csproj') != '' }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: ./coverage-report

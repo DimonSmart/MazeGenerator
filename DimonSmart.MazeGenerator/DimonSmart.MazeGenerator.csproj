@@ -4,7 +4,7 @@
         <Configuration>Release</Configuration>
         <IsPackable>true</IsPackable>
         <OutputType>Library</OutputType>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFrameworks>net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -20,8 +20,8 @@
         <PackageLicenseExpression>0BSD</PackageLicenseExpression>
         <LangVersion>latest</LangVersion>
         <Deterministic>true</Deterministic>
-        <PackageVersion>1.$([System.DateTime]::UtcNow.ToString("yyMdd")).$([System.DateTime]::UtcNow.ToString("HHmm"))</PackageVersion>
-        <Version>1.$([System.DateTime]::UtcNow.ToString("yyMdd")).$([System.DateTime]::UtcNow.ToString("HHmm"))</Version>
+        <PackageVersion>1.$([System.DateTime]::UtcNow.ToString("yyMM")).$([System.DateTime]::UtcNow.ToString("ddHH")).$([System.DateTime]::UtcNow.ToString("mm"))</PackageVersion>
+        <Version>$(PackageVersion)</Version>
     </PropertyGroup>
 
     <ItemGroup>
