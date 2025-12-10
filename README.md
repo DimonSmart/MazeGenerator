@@ -1,7 +1,7 @@
 # MazeGenerator
 **Demo online:** [https://dimonsmart.github.io/Demo/](https://dimonsmart.github.io/Demo/)
 
-MazeGenerator is a lightweight C# library for generating, visualizing, and solving mazes. It ships with two runnable demos so you can verify the workflow without writing extra plumbing.
+MazeGenerator is a lightweight C# library for generating, visualizing, and solving mazes. The repo ships with a single CLI sample that walks through three small scenarios so you can verify the workflow without extra plumbing.
 
 ## Highlights
 - **Deterministic generation** – control maze density via `MazeBuildOptions` (`WallShortness`, `Emptiness`).
@@ -11,7 +11,7 @@ MazeGenerator is a lightweight C# library for generating, visualizing, and solvi
 
 ## Quick start
 
-Run the minimal text-mode sample:
+Run the text-mode sample (it plays all three scenarios back-to-back):
 
 ```bash
 git clone https://github.com/DimonSmart/MazeGenerator.git
@@ -19,7 +19,12 @@ cd MazeGenerator
 dotnet run --project QuickStartDemo --framework net8.0
 ```
 
-You will see the generated maze, the computed `S` → `E` path, and the path length printed in the terminal. The source lives in [QuickStartDemo/Program.cs](QuickStartDemo/Program.cs).
+You will see:
+- **Example 1** – default 9×9 generation.
+- **Example 2** – generation with `MazeBuildOptions` and a custom `IMazePlotter` implementation.
+- **Example 3** – wave propagation + reconstructed path (shows `S`, `E`, and `*`).
+
+The source lives in [QuickStartDemo/Program.cs](QuickStartDemo/Program.cs).
 
 ## Use the library in your app
 
@@ -44,7 +49,7 @@ You will see the generated maze, the computed `S` → `E` path, and the path len
 
 	```csharp
 	var maze = new Maze<TutorialCell>(31, 21);
-	var options = new MazeBuildOptions(wallShortness: 0.15, emptiness: 0.05);
+	var options = new MazeBuildOptions(WallShortness: 0.15, Emptiness: 0.05);
 	new MazeBuilder<TutorialCell>(maze, options).Build();
 
 	var start = new Point(1, 1);
@@ -67,10 +72,9 @@ You will see the generated maze, the computed `S` → `E` path, and the path len
 - `WallShortness` – probability of interrupting long straight walls (higher value → twistier mazes).
 - `Emptiness` – probability of skipping a wall entirely (higher value → more open space).
 
-## Built-in demos
+## Included demo
 
-- **QuickStartDemo** – self-contained text output proving the README flow works. Run `dotnet run --project QuickStartDemo --framework net10.0` to validate the latest runtime.
-- **DimonSmart.MazeGeneratorConsoleDemo** – colored console visualizer that animates walls, wave propagation, and the final path. Set it as the startup project and press F5 in Visual Studio, or run `dotnet run --project DimonSmart.MazeGeneratorConsoleDemo`.
+- **QuickStartDemo** – prints three compact scenarios (defaults, custom plotter, pathfinding). Run `dotnet run --project QuickStartDemo --framework net10.0` to validate the latest runtime.
 
 ## Key types
 
@@ -84,8 +88,9 @@ You will see the generated maze, the computed `S` → `E` path, and the path len
 
 - Library multi-targets `net6.0; net7.0; net8.0; net9.0; net10.0`.
 - QuickStartDemo targets `net6.0`, `net8.0`, and `net10.0` to ensure downstream apps compile cleanly across LTS and the latest SDK.
+- `DimonSmart.MazeGenerator.Tests` (xUnit, `net8.0`) checks border generation plus wave/path reconstruction so regressions are caught automatically.
 - `dotnet build MazeGenerator.sln` succeeds on .NET SDK 10.0.101 (checked on 2025-12-10).
 
 ## Contributing
 
-Issues and pull requests are welcome. Please include a short description of the scenario you verified (CLI demo, QuickStartDemo, custom UI, etc.) so regressions stay easy to triage.
+Issues and pull requests are welcome. Please include a short description of the scenario you verified (QuickStart example number, custom UI, etc.) so regressions stay easy to triage.
